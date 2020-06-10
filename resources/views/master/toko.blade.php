@@ -61,7 +61,7 @@
                                     <div class="popular-img">
                                         <img src="{{ url('gambar/cover/'.$data->cover) }}" alt="">
                                         <div class="img-cap">
-                                            <span>Add to cart</span>
+                                            <button class="btn btn-block add_cart" value="{{$data->id}}">Add to cart</button>
                                         </div>
                                         <div class="favorit-items">
                                             <span class="flaticon-heart"></span>
@@ -114,5 +114,29 @@
         <!-- Shop Method End-->
     </main>
 
-
 @endsection
+
+
+{{-- @section('javascript')
+<script type="text/javascript">
+    
+    $(function () {
+        $(".pro_ajax").on('click',function(){
+        var filter_by = $(this).val();    
+
+            $.ajax({
+                    type: 'get',
+                    dataType: 'html',
+                    url: '/get_filtered_product/home',
+                    data: "filter_by=" + filter_by,
+                    success: function (response) {
+                        $('#updateDiv').html(response);
+                    }
+                });
+            });
+       
+    });
+
+</script>
+
+@endsection --}}

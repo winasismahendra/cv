@@ -28,83 +28,78 @@
                     <th scope="col">Product</th>
                     <th scope="col">Price</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col" colspan="2" class="text-center">Action</th>
                     <th scope="col">Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <div class="media">
-                        <div class="d-flex">
-                          <img src="assets/img/gallery/card1.png" alt="" />
-                        </div>
-                        <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$360.00</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                        <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                        <input class="input-number" type="text" value="1" min="0" max="10">
-                        <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$720.00</h5>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="media">
-                        <div class="d-flex">
-                          <img src="assets/img/gallery/card2.png" alt="" />
-                        </div>
-                        <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$360.00</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                          <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                          <input class="input-number" type="text" value="1" min="0" max="10">
-                          <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$720.00</h5>
-                    </td>
-                  </tr>
+                  @foreach($cartItems as $items)
+                  <form action="{{route('order.updateCart', $items->rowId)}}" method="post">
+                    {{ csrf_field() }}
+                     {{ method_field('PUT') }}
+                      <tr id="item-{{$items->rowId}}">
+                        <td>
+                          <div class="media">
+                            <div class="d-flex">
+                              <img src="{{ url('gambar/cover/'.$items->cover) }}" alt="" />
+                            </div>
+                            <div class="media-body">
+                              <p>{{$items->name}}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <h5>{{ number_format($items->price, 0, ',','.') }}</h5>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input value="{{$items->qty}}" type="number" name="qty" class="" max="10" min="1">
+                                    <input type="hidden" name="id" value="{{$items->rowId}}">
+                            </div>
+                        </td>
+                        
+                        <td width="5%"> <button type="submit" style=" border-radius: 20px; cursor: pointer; color: black; background-color: #5cb85c; border-color: #5cb85c;">Update</button></td>
+                  </form>
+                        <td width="5%"> <button class="delete-cart" style="border-radius: 20px; cursor: pointer; margin-right: 20px; color: black; background-color: #d9534f; border-color: #d9534f;" value="{{$items->rowId}}">Delete</button></td>
+
+                        <td>
+                          @php $hargaBarangTotal =  $items->price * $items->qty @endphp
+                          <h5>{{ number_format($hargaBarangTotal, 0, ',','.') }}</h5>
+                        </td>
+                      </tr>
+                  @endforeach
                   <tr class="bottom_button">
-                    <td>
-                      <a class="btn_1" href="#">Update Cart</a>
-                    </td>
                     <td></td>
                     <td></td>
-                    <td>
-                      <div class="cupon_text float-right">
-                        <a class="btn_1" href="#">Close Coupon</a>
-                      </div>
-                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    @if($cartItems->count() > 0)
+                      <td>
+                        <div class="cupon_text float-right">
+                          <a class="btn_1" href="#">Delete All Cart Items</a>
+                        </div>
+                      </td>
+                    @else
+                      <td></td>
+                    @endif
+                    
                   </tr>
                   <tr>
                     <td></td>
                     <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
-                      <h5>Subtotal</h5>
+                      <h5>Subtotal (Rp.)</h5>
                     </td>
                     <td>
-                      <h5>$2160.00</h5>
+                      <h5 id="sub_total">{{ number_format(Cart::subtotal(), 2, ',','.') }}-</h5>
                     </td>
                   </tr>
-                  <tr class="shipping_area">
+{{--                   <tr class="shipping_area">
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td>
@@ -148,12 +143,16 @@
                         <a class="btn_1" href="#">Update Details</a>
                       </div>
                     </td>
-                  </tr>
+                  </tr> --}}
                 </tbody>
               </table>
               <div class="checkout_btn_inner float-right">
                 <a class="btn_1" href="#">Continue Shopping</a>
-                <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>
+                @if($cartItems->count() > 0)
+                  <a class="btn_1 checkout_btn_1" href="{{route('cek_out')}}">Proceed to checkout</a>
+                @else
+                  <a class="btn_1 checkout_btn_1" style="color: white; cursor: not-allowed; opacity: 0.75;">Proceed to checkout</a>
+                @endif
               </div>
             </div>
           </div>

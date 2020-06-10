@@ -6,7 +6,7 @@
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                            <a href="index.html"><img src="master/assets/img/logo/logo.png" alt=""></a>
                         </div>
                         <!-- Main-menu -->
                         <div class="main-menu d-none d-lg-block">
@@ -29,7 +29,7 @@
                                     </div>
                                 </li>
                                 <li> <a href="{{route('user')}}"><span class="flaticon-user"></span></a></li>
-                                <li><a href="{{route('cart')}}"><span class="flaticon-shopping-cart"></span></a> </li>
+                                <li id="cart_header"><a href="{{route('cart')}}"><span id="nav-cart" class="flaticon-shopping-cart"><small class="badge badge-secondary">{{Cart::content()->count()}}</small></span></a> </li>
                             </ul>
                         </div>
                     </div>

@@ -6,8 +6,11 @@
     <title>Alumunindo Jaya Steel</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{{asset('master/assets/css/bootstrap.min.css')}}">
@@ -19,8 +22,9 @@
     <link rel="stylesheet" href="{{asset('master/assets/css/fontawesome-all.min.css')}}">
     <link rel="stylesheet" href="{{asset('master/assets/css/themify-icons.css')}}">
     <link rel="stylesheet" href="{{asset('master/assets/css/slick.css')}}">
-    <link rel="stylesheet" href="{{asset('master/assets/css/nice-select.css')}}">
     <link rel="stylesheet" href="{{asset('master/assets/css/style.css')}}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 </head>
 
 <body>
@@ -30,7 +34,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/logo.png" alt="">
+                    <img src="master/assets/img/logo/logo.png" alt="">
                 </div>
             </div>
         </div>
@@ -48,7 +52,7 @@
                             <div class="single-footer-caption mb-30">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                    <a href="index.html"><img src="master/assets/img/logo/logo2_footer.png" alt=""></a>
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
@@ -155,7 +159,6 @@
 
     <!-- Scrollup, nice-select, sticky -->
     <script src="{{asset('master/./assets/js/jquery.scrollUp.min.js')}}"></script>
-    <script src="{{asset('master/./assets/js/jquery.nice-select.min.js')}}"></script>
     <script src="{{asset('master/./assets/js/jquery.sticky.js')}}"></script>
     
     <!-- contact js -->
@@ -168,6 +171,7 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="{{asset('master/./assets/js/plugins.js')}}"></script>
     <script src="{{asset('master/./assets/js/main.js')}}"></script>
-    
+
+    @include('layout.javascripts')
 </body>
 </html>

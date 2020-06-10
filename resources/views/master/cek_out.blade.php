@@ -18,9 +18,9 @@
             </div>
         </div>
         <!--================Checkout Area =================-->
-        <section class="checkout_area section_padding">
+        <section class="checkout_area section_padding" style="margin-top: -7.5%;">
           <div class="container">
-            <div class="returning_customer">
+            {{-- <div class="returning_customer">
               <div class="check_title">
                 <h2>
                   Returning Customer?
@@ -62,123 +62,82 @@
               </div>
               <input type="text" placeholder="Enter coupon code" />
               <a class="tp_btn" href="#">Apply Coupon</a>
-            </div>
+            </div> --}}
             <div class="billing_details">
               <div class="row">
                 <div class="col-lg-8">
                   <h3>Billing Details</h3>
-                  <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                    <div class="col-md-6 form-group p_star">
-                      <input type="text" class="form-control" id="first" name="name" />
-                      <span class="placeholder" data-placeholder="First name"></span>
+                  <form class="row contact_form" action="{{route('order.proccess')}}" method="post" novalidate="novalidate">
+                    @csrf
+                    <div class="col-md-6 form-group">
+                      <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name"/>
                     </div>
-                    <div class="col-md-6 form-group p_star">
-                      <input type="text" class="form-control" id="last" name="name" />
-                      <span class="placeholder" data-placeholder="Last name"></span>
+                    <div class="col-md-6 form-group">
+                      <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone number"/>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <input type="text" class="form-control" id="email" name="email" placeholder="Email Address"/>
                     </div>
                     <div class="col-md-12 form-group">
-                      <input type="text" class="form-control" id="company" name="company" placeholder="Company name" />
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                      <input type="text" class="form-control" id="number" name="number" />
-                      <span class="placeholder" data-placeholder="Phone number"></span>
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                      <input type="text" class="form-control" id="email" name="compemailany" />
-                      <span class="placeholder" data-placeholder="Email Address"></span>
-                    </div>
-                    <div class="col-md-12 form-group p_star">
-                      <select class="country_select">
-                        <option value="1">Country</option>
-                        <option value="2">Country</option>
-                        <option value="4">Country</option>
-                      </select>
-                    </div>
-                    <div class="col-md-12 form-group p_star">
-                      <input type="text" class="form-control" id="add1" name="add1" />
-                      <span class="placeholder" data-placeholder="Address line 01"></span>
-                    </div>
-                    <div class="col-md-12 form-group p_star">
-                      <input type="text" class="form-control" id="add2" name="add2" />
-                      <span class="placeholder" data-placeholder="Address line 02"></span>
-                    </div>
-                    <div class="col-md-12 form-group p_star">
-                      <input type="text" class="form-control" id="city" name="city" />
-                      <span class="placeholder" data-placeholder="Town/City"></span>
-                    </div>
-                    <div class="col-md-12 form-group p_star">
-                      <select class="country_select">
-                        <option value="1">District</option>
-                        <option value="2">District</option>
-                        <option value="4">District</option>
+                      <select id="province_id" name="province_id" class="country_select select2">
+                          <option value="" selected disabled>Select Province</option>
+                              @foreach(App\Location\Province::get() as $prv)
+                                <option value="{{$prv->province_id}}">{{$prv->title}}</option>
+                              @endforeach
                       </select>
                     </div>
                     <div class="col-md-12 form-group">
-                      <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" />
+                      <select id="city_id" name="city_id" class="country_select select2">
+                      </select>
                     </div>
                     <div class="col-md-12 form-group">
-                      <div class="creat_account">
-                        <input type="checkbox" id="f-option2" name="selector" />
-                        <label for="f-option2">Create an account?</label>
-                      </div>
+                      <input type="text" class="form-control" id="address" name="address" placeholder="Full Address line"/>
                     </div>
                     <div class="col-md-12 form-group">
-                      <div class="creat_account">
-                        <h3>Shipping Details</h3>
-                        <input type="checkbox" id="f-option3" name="selector" />
-                        <label for="f-option3">Ship to a different address?</label>
-                      </div>
-                      <textarea class="form-control" name="message" id="message" rows="1"
+                      <textarea class="form-control" name="note" id="note" rows="1"
                         placeholder="Order Notes"></textarea>
                     </div>
-                  </form>
                 </div>
                 <div class="col-lg-4">
                   <div class="order_box">
                     <h2>Your Order</h2>
                     <ul class="list">
                       <li>
-                        <a href="#">Product
+                        <a>Product
                           <span>Total</span>
                         </a>
                       </li>
+                      @foreach($cartItems as $items)
                       <li>
-                        <a href="#">Fresh Blackberry
-                          <span class="middle">x 02</span>
-                          <span class="last">$720.00</span>
+                        <a href="#">{{$items->name}}
+                          <span class="middle">x {{$items->qty}}</span>
+                            @php $hargaBarangTotal =  $items->price * $items->qty @endphp
+                          <span class="last">{{ number_format($hargaBarangTotal, 0, ',','.') }}-</span>
                         </a>
                       </li>
-                      <li>
-                        <a href="#">Fresh Tomatoes
-                          <span class="middle">x 02</span>
-                          <span class="last">$720.00</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">Fresh Brocoli
-                          <span class="middle">x 02</span>
-                          <span class="last">$720.00</span>
-                        </a>
-                      </li>
+                      @endforeach
                     </ul>
                     <ul class="list list_2">
                       <li>
                         <a href="#">Subtotal
-                          <span>$2160.00</span>
+                          <span>Rp. {{ number_format(Cart::subtotal(), 2, ',','.') }}</span>
                         </a>
                       </li>
-                      <li>
+                      {{-- <li>
                         <a href="#">Shipping
                           <span>Flat rate: $50.00</span>
                         </a>
-                      </li>
+                      </li> --}}
                       <li>
                         <a href="#">Total
-                          <span>$2210.00</span>
+                          <span>Rp. {{ number_format(Cart::subtotal(), 2, ',','.') }}</span>
                         </a>
                       </li>
                     </ul>
-                    <div class="payment_item">
+{{--                     <div class="payment_item">
                       <div class="radion_btn">
                         <input type="radio" id="f-option5" name="selector" />
                         <label for="f-option5">Check payments</label>
@@ -200,14 +159,19 @@
                         Please send a check to Store Name, Store Street, Store Town,
                         Store State / County, Store Postcode.
                       </p>
-                    </div>
+                    </div> --}}
                     <div class="creat_account">
                       <input type="checkbox" id="f-option4" name="selector" />
                       <label for="f-option4">I’ve read and accept the </label>
                       <a href="#">terms & conditions*</a>
                     </div>
-                    <a class="btn_3" href="#">Proceed to Paypal</a>
+                    @guest
+                    <button type="button" class="btn_3">Please Login</button>
+                    @else
+                    <button type="submit" class="btn_3">Proceed your Order</button>
+                    @endguest
                   </div>
+                  </form>
                 </div>
               </div>
             </div>

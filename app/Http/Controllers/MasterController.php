@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\admin\katalog;
 use App\admin\foto;
 use DB;
+use Cart;
 use App\admin\album;
 
 class MasterController extends Controller
@@ -81,15 +82,23 @@ class MasterController extends Controller
     }
 
     public function cart(){
+        $cartItems = Cart::content();
+        return view('master/cart', compact('cartItems'));
 
-
-        return view('master/cart');
+        if ($cartItems->count() < 1) {
+            alert()->warning('Maaf halaman tidak tersedia, pastikan cart anda terisi untuk melakukan proses Checkout')->persistent('Close');
+            return back();
+        }
+        else
+        {
+            return view('master/cart', compact('cartItems'));
+        }
     }
 
      public function cek_out(){
+        $cartItems = Cart::content();
 
-
-        return view('master/cek_out');
+        return view('master/cek_out', compact('cartItems'));
     }
 
 }

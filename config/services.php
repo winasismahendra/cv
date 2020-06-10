@@ -34,4 +34,15 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
+    'midtrans' => [
+        // Midtrans server key
+        'serverKey'     => 'SB-Mid-server-zxG-e3i5xcqcwE2I9OQ6dClt',
+        // Midtrans client key
+        'clientKey'     => 'SB-MiSB-Mid-client-r26AsjD_HdYhnK-X',
+        // Isi false jika masih tahap development dan true jika sudah di production, default false (development)
+        'isProduction'  => env('false', false),
+        'isSanitized'   => env('true', false),
+        'is3ds'         => env('true', false),                
+    ],
+
 ];

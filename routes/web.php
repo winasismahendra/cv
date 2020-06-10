@@ -52,3 +52,29 @@ Route::get('/hapus-gallery/{id}','AdminController@hapus_gallery')->name('hapus_g
 
 
 Route::get('/dashboard', 'AdminController@index')->name('landing');
+
+
+Route::get('/get-city-list', 'OrderController@getCity');
+
+Route::group(['as' => 'order.'], function () {
+
+	Route::get('/addToCart', 'OrderController@addToCart')->name('addToCart');
+	Route::match(['put', 'patch'], '/cart','OrderController@updateCart')->name('updateCart');
+	Route::delete('/deleteCartItem/{id}','OrderController@deleteCart')->name('deleteCart');
+
+	Route::delete('/deleteAllCartItem','OrderController@deleteAllCart')->name('deleteAllCart');
+	Route::delete('/deleteHistory/{orderId}','OrderController@deleteHistory')->name('deleteHistory');
+
+	Route::post('/order/payment', 'OrderController@orderCart')->name('payment');
+	Route::post('/payment', 'OrderController@orderProccess')->name('proccess');
+	Route::post('/notification/handler', 'OrderController@notificationHandler')->name('notification.handler');
+
+	Route::get('payments/completed', 'OrderController@completed');
+	Route::get('payments/failed', 'OrderController@failed');
+	Route::get('payments/unfinish', 'OrderController@unfinish');
+
+	Route::get('orders/received/{orderID}', 'OrderController@received');
+
+	Route::get('orders/history', 'OrderController@historyOrder')->name('history');
+	Route::get('orders/history/{orderId}', 'OrderController@historyOrderDetail')->name('history.detail');
+});
