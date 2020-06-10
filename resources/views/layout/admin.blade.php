@@ -82,6 +82,10 @@
                                    
                                 </ul>
                             </li>
+                            <li class="">
+                                <a href="{{route ('history')}}" ><i class="ti-user"></i><span>History</span></a>
+                                
+                            </li>
                                    
                         </ul>
                     </nav>

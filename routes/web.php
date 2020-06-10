@@ -48,6 +48,8 @@ Route::get('/adm-gallery-data', 'AdminController@gallerydata')->name('gallerydat
 Route::post('/gallery-up','AdminController@gallery_up')->name('gallery_up');
 Route::post('/gallery-edit/{id}','AdminController@gallery_edit')->name('gallery_edit');
 Route::get('/hapus-gallery/{id}','AdminController@hapus_gallery')->name('hapus_gallery');
+Route::get('/adm-status', 'AdminController@history')->name('history');
+Route::get('/adm-status-det', 'AdminController@history_det')->name('history-det');
 
 
 

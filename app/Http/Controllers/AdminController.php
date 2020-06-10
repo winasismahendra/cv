@@ -34,6 +34,18 @@ class AdminController extends Controller
    	return view('admin/katalog');
    }
 
+   public function history (){
+
+
+    return view('admin/payment');
+   }
+
+   public function history_det (){
+
+
+    return view('admin/paydet');
+   }
+
    public function katalogdata (){
 
    		$katalog= katalog::all();
